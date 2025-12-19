@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>WA Blast Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="login">
+  <h2>🔐 Login Admin</h2>
+  <input id="user" placeholder="Username">
+  <input id="pass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<div id="app" style="display:none">
+  <h1>📊 WhatsApp Blast Dashboard</h1>
+
+  <label>Pilih Client</label>
+  <select id="client">
+    <option value="client_a">Client A</option>
+    <option value="client_b">Client B</option>
+  </select>
+
+  <label>Template</label>
+  <input id="template" placeholder="invoice_notification">
+
+  <label>Upload Excel</label>
+  <input type="file" id="file" accept=".xlsx">
+
+  <div class="row">
+    <button onclick="start()">▶ Start</button>
+    <button onclick="pause()">⏸ Pause</button>
+    <button onclick="resume()">▶ Resume</button>
+  </div>
+
+  <div class="progress">
+    <div id="bar"></div>
+  </div>
+
+  <div id="stats"></div>
+  <div class="log" id="log"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
