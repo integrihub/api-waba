@@ -21,11 +21,12 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
   if (data.ok) {
     localStorage.setItem("auth", "true");
-    window.location.href = "/dashboard.html";
+    window.location.href = "/index.html";
   } else {
     alert("Login gagal");
   }
 });
 </script>
+
 
 
