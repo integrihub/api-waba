@@ -1,4 +1,4 @@
-const API = "https://WORKER-KAMU";
+const API = "https://integrihub-webhook.integrihub.workers.dev/";
 
 function log(m){ document.getElementById("log").innerHTML+=m+"<br>"; }
 
@@ -50,3 +50,4 @@ function fileInput(){
   if(!f) throw "Upload file dulu";
   return f;
 }
+
