@@ -4,12 +4,19 @@ export default {
   async fetch(req,env){
     const url=new URL(req.url);
 
-    if(url.pathname=="/login"){
-      const b=await req.json();
-      return new Response(
-        b.u===env.ADMIN_USER && b.p===env.ADMIN_PASS ? "OK":"NO"
-      );
-    }
+    if (url.pathname === "/login") {
+  const b = await req.json();
+
+  if (
+    b.username === env.ADMIN_USER &&
+    b.password === env.ADMIN_PASS
+  ) {
+    return Response.json({ ok: true });
+  }
+
+  return Response.json({ ok: false }, { status: 401 });
+}
+
 
     if(url.pathname=="/blast/upload"){
       const b=await req.json();
@@ -74,3 +81,4 @@ async function send(env,phone,vars,template){
 }
 
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
