@@ -6,6 +6,11 @@
 </head>
 <body>
 
+<script src="auth.js"></script>
+<script>
+  protectPage(); // 🔐 wajib
+</script>
+
 <h1>📜 History Blast</h1>
 <a href="index.html">⬅ Dashboard</a>
 
@@ -18,6 +23,7 @@
       <th>Sent</th>
       <th>Failed</th>
       <th>Durasi</th>
+      <th>Aksi</th>
     </tr>
   </thead>
   <tbody id="rows"></tbody>
