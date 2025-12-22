@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <title>WA Blast Pro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- ===== LOGIN ===== -->
 <div id="login">
   <h2>🔐 Login Admin</h2>
   <input id="user" placeholder="Username">
@@ -16,14 +18,17 @@
   <button onclick="login()">Login</button>
 </div>
 
+<!-- ===== APP ===== -->
 <div id="app" style="display:none">
-  <h1>📊 WhatsApp Blast Dashboard</h1>
 
-  <label>Pilih Client</label>
-  <select id="client">
-    <option value="client_a">Client A</option>
-    <option value="client_b">Client B</option>
-  </select>
+  <!-- TOP BAR -->
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <h1>📊 WhatsApp Blast Dashboard</h1>
+    <div>
+      <button onclick="openHistory()">📜 History</button>
+      <button onclick="logout()">🚪 Logout</button>
+    </div>
+  </div>
 
   <label>Template</label>
   <input id="template" placeholder="invoice_notification">
@@ -37,14 +42,36 @@
     <button onclick="resume()">▶ Resume</button>
   </div>
 
+  <!-- PROGRESS -->
   <div class="progress">
     <div id="bar"></div>
   </div>
 
-  <div id="stats"></div>
+  <!-- STATS -->
+  <div id="stats">
+    <b>Status:</b>
+    Sent: <span id="sent">0</span> |
+    Failed: <span id="failed">0</span> |
+    Progress: <span id="percent">0%</span>
+  </div>
+
+  <!-- LOG -->
   <div class="log" id="log"></div>
+
 </div>
 
 <script src="app.js"></script>
+
+<script>
+  function logout() {
+    document.getElementById("app").style.display = "none";
+    document.getElementById("login").style.display = "block";
+  }
+
+  function openHistory() {
+    window.location.href = "history.html";
+  }
+</script>
+
 </body>
 </html>
