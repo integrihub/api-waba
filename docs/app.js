@@ -13,6 +13,7 @@ async function login() {
   const data = await r.json();
 
   if (data.ok) {
+    setLogin(); // 🔐 simpan status login
     document.getElementById("login").style.display = "none";
     document.getElementById("app").style.display = "block";
   } else {
