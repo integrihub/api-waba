@@ -1,24 +1,21 @@
 const API = "https://integrihub-webhook.integrihub.workers.dev";
 
-let blasting = false;
-let timer = null;
-
 async function login() {
   const r = await fetch(API + "/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      username: user.value,
-      password: pass.value
+      username: document.getElementById("user").value,
+      password: document.getElementById("pass").value
     })
   });
 
-  const d = await r.json();
+  const data = await r.json();
 
-  if (d.ok) {
-    setLogin();
-    login.style.display = "none";
-    app.style.display = "block";
+  if (data.ok) {
+    setLogin(); // 🔐 simpan status login
+    document.getElementById("login").style.display = "none";
+    document.getElementById("app").style.display = "block";
   } else {
     alert("Login gagal");
   }
@@ -78,3 +75,4 @@ function stopBlast() {
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
+
