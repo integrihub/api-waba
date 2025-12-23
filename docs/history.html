@@ -8,11 +8,11 @@
 
 <script src="auth.js"></script>
 <script>
-  protectPage(); // 🔐 wajib
+  protectPage(); // 🔐 WAJIB
 </script>
 
 <h1>📜 History Blast</h1>
-<a href="index.html">⬅ Dashboard</a>
+<button onclick="goDashboard()">⬅ Dashboard</button>
 
 <table>
   <thead>
@@ -30,5 +30,11 @@
 </table>
 
 <script src="history.js"></script>
+<script>
+  function goDashboard() {
+    location.href = "index.html";
+  }
+</script>
+
 </body>
 </html>
