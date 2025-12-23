@@ -8,8 +8,17 @@
 
 <script src="auth.js"></script>
 <script>
-  protectPage(); // 🔐 WAJIB
+  protectPage();
 </script>
+
+<button onclick="goDashboard()">⬅ Dashboard</button>
+
+<script>
+  function goDashboard() {
+    location.href = "/api-waba/index.html";
+  }
+</script>
+
 
 <h1>📜 History Blast</h1>
 <button onclick="goDashboard()">⬅ Dashboard</button>
@@ -32,9 +41,10 @@
 <script src="history.js"></script>
 <script>
   function goDashboard() {
-    location.href = "index.html";
+    location.href = "/api-waba/index.html";
   }
 </script>
 
 </body>
 </html>
+
