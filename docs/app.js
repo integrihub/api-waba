@@ -9,17 +9,17 @@ async function login() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      username: user.value,
-      password: pass.value
+      username: document.getElementById("user").value,
+      password: document.getElementById("pass").value
     })
   });
 
   const data = await r.json();
 
   if (data.ok) {
-    setLogin();
-    loginDiv.style.display = "none";
-    app.style.display = "block";
+    setLogin(); // 🔐 simpan status login
+    document.getElementById("login").style.display = "none";
+    document.getElementById("app").style.display = "block";
   } else {
     alert("Login gagal");
   }
@@ -90,3 +90,4 @@ function stopBlast() {
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
+
