@@ -1,8 +1,5 @@
 const API = "https://integrihub-webhook.integrihub.workers.dev";
 
-let blasting = false;
-let timer = null;
-
 /* ===== LOGIN (TETAP) ===== */
 async function login() {
   const r = await fetch(API + "/login", {
@@ -90,4 +87,5 @@ function stopBlast() {
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
+
 
