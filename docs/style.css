@@ -103,8 +103,41 @@ button:disabled {
   animation:spin 1s linear infinite;
 }
 
+/* ===== AKSI BUTTON DI TABLE ===== */
+.history-table td button {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 8px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .history-table thead {
+    display: none;
+  }
+
+  .history-table tbody tr {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .history-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 14px;
+    text-align: right;
+  }
+
+  .history-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #94a3b8;
+    text-align: left;
+  }
+
 .hidden { display:none; }
 
 @keyframes spin {
   to { transform:rotate(360deg); }
 }
+
