@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>WA Blast Pro</title>
-  <link rel="icon" type="image/png" href="wa.png">
+  <link rel="icon" href="wa.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
@@ -11,18 +11,16 @@
 </head>
 <body>
 
-<!-- ===== LOGIN ===== -->
+<!-- LOGIN -->
 <div id="login">
   <h2>🔐 Login Admin</h2>
   <input id="user" placeholder="Username">
-  <input id="pass" type="password" placeholder="Password">
+  <input id="pass" type="password">
   <button onclick="login()">Login</button>
 </div>
 
-<!-- ===== APP ===== -->
+<!-- APP -->
 <div id="app" style="display:none">
-
-  <!-- TOP BAR -->
   <div class="topbar">
     <h1>📊 WhatsApp Blast Dashboard integriHub</h1>
     <div class="top-actions">
@@ -40,47 +38,39 @@
 
   <div class="row">
     <button id="btnStart" onclick="start()">
-      ▶ Start
-      <span id="spinner" class="spinner hidden"></span>
+      ▶ Start <span id="spinner" class="spinner hidden"></span>
     </button>
     <button onclick="pause()">⏸ Pause</button>
     <button onclick="resume()">▶ Resume</button>
   </div>
 
-  <!-- PROGRESS -->
   <div class="progress">
     <div id="bar"></div>
   </div>
 
-  <!-- STATS -->
   <div id="stats">
-    <b>Status:</b>
     Sent: <span id="sent" class="success">0</span> |
     Failed: <span id="failed" class="error">0</span> |
     Progress: <span id="percent">0%</span>
   </div>
 
-  <!-- LOG -->
   <div class="log" id="log"></div>
-
 </div>
 
 <script src="auth.js"></script>
 <script src="app.js"></script>
 
 <script>
-  function openHistory() {
-    window.location.href = "history.html";
+  // AUTO SHOW DASHBOARD JIKA SUDAH LOGIN
+  if (isLoggedIn()) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("app").style.display = "block";
   }
 
-  // 🔐 auto login
-  if (isLoggedIn()) {
-    login.style.display = "none";
-    app.style.display = "block";
+  function openHistory() {
+    window.location.href = "history.html";
   }
 </script>
 
 </body>
 </html>
-
-
