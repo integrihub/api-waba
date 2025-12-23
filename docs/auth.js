@@ -1,4 +1,4 @@
-// auth.js (FINAL & STABLE)
+// auth.js — FINAL FIX (NO DOMCONTENTLOADED BUG)
 
 const AUTH_KEY = "waba_logged_in";
 
@@ -14,15 +14,12 @@ function isLoggedIn() {
 /* ===== LOGOUT ===== */
 function logout() {
   localStorage.removeItem(AUTH_KEY);
-  window.location.href = "index.html";
+  location.href = "index.html";
 }
 
-/* ===== PAGE PROTECTION ===== */
+/* ===== PAGE GUARD ===== */
 function protectPage() {
-  // tunggu DOM siap (PENTING)
-  document.addEventListener("DOMContentLoaded", () => {
-    if (!isLoggedIn()) {
-      window.location.href = "index.html";
-    }
-  });
+  if (!isLoggedIn()) {
+    location.href = "index.html";
+  }
 }
