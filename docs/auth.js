@@ -23,3 +23,4 @@ function protectPage() {
     window.location.href = "index.html";
   }
 }
+
