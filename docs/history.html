@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+  <meta charset="UTF-8">
   <title>History Blast</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -11,26 +12,29 @@
   protectPage(); // 🔐 HANYA DI HISTORY
 </script>
 
-<h1>📜 History Blast</h1>
-<button onclick="goDashboard()">⬅ Dashboard</button>
+<div class="topbar">
+  <h1>📜 History Blast</h1>
+  <button onclick="goDashboard()">⬅ Dashboard</button>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Waktu</th>
-      <th>Template</th>
-      <th>Total</th>
-      <th>Sent</th>
-      <th>Failed</th>
-      <th>Durasi</th>
-      <th>Aksi</th>
-    </tr>
-  </thead>
-  <tbody id="rows"></tbody>
-</table>
+<div class="table-wrapper">
+  <table class="history-table">
+    <thead>
+      <tr>
+        <th>Waktu</th>
+        <th>Template</th>
+        <th>Total</th>
+        <th>Sent</th>
+        <th>Failed</th>
+        <th>Durasi</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+</div>
 
 <script src="history.js"></script>
-
 <script>
   function goDashboard() {
     window.location.href = "index.html";
