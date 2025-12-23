@@ -23,9 +23,10 @@
 <div id="app" style="display:none">
 
   <!-- TOP BAR -->
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <h1>📊 WhatsApp Blast Dashboard</h1>
-    <div>
+  <div class="topbar">
+    <h1>📊 WhatsApp Blast Dashboard integriHub</h1>
+    <div class="top-actions">
+      <button onclick="toggleTheme()">🌓 Theme</button>
       <button onclick="openHistory()">📜 History</button>
       <button onclick="logout()">🚪 Logout</button>
     </div>
@@ -38,7 +39,10 @@
   <input type="file" id="file" accept=".xlsx">
 
   <div class="row">
-    <button onclick="start()">▶ Start</button>
+    <button id="btnStart" onclick="start()">
+      ▶ Start
+      <span id="spinner" class="spinner hidden"></span>
+    </button>
     <button onclick="pause()">⏸ Pause</button>
     <button onclick="resume()">▶ Resume</button>
   </div>
@@ -51,8 +55,8 @@
   <!-- STATS -->
   <div id="stats">
     <b>Status:</b>
-    Sent: <span id="sent">0</span> |
-    Failed: <span id="failed">0</span> |
+    Sent: <span id="sent" class="success">0</span> |
+    Failed: <span id="failed" class="error">0</span> |
     Progress: <span id="percent">0%</span>
   </div>
 
@@ -69,14 +73,12 @@
     window.location.href = "history.html";
   }
 
-  // 🔐 auto login kalau sudah pernah login
+  // 🔐 auto login
   if (isLoggedIn()) {
-    document.getElementById("login").style.display = "none";
-    document.getElementById("app").style.display = "block";
+    login.style.display = "none";
+    app.style.display = "block";
   }
 </script>
 
 </body>
 </html>
-
-
