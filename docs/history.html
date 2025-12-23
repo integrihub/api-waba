@@ -8,17 +8,8 @@
 
 <script src="auth.js"></script>
 <script>
-  protectPage();
+  protectPage(); // 🔐 HANYA DI HISTORY
 </script>
-
-<button onclick="goDashboard()">⬅ Dashboard</button>
-
-<script>
-  function goDashboard() {
-    location.href = "index.html";
-  }
-</script>
-
 
 <h1>📜 History Blast</h1>
 <button onclick="goDashboard()">⬅ Dashboard</button>
@@ -39,13 +30,12 @@
 </table>
 
 <script src="history.js"></script>
+
 <script>
   function goDashboard() {
-    location.href = "index.html";
+    window.location.href = "index.html";
   }
 </script>
 
 </body>
 </html>
-
-
