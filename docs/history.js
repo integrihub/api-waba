@@ -8,10 +8,9 @@ async function loadHistory() {
   rows.innerHTML = "";
 
   for (const h of data) {
-    const durasi =
-      h.end
-        ? Math.round((new Date(h.end) - new Date(h.start)) / 1000) + "s"
-        : "-";
+    const durasi = h.end
+      ? Math.round((new Date(h.end) - new Date(h.start)) / 1000) + "s"
+      : "-";
 
     rows.innerHTML += `
       <tr>
@@ -21,19 +20,10 @@ async function loadHistory() {
         <td>${h.sent}</td>
         <td>${h.failed}</td>
         <td>${durasi}</td>
-        <td>
-          <button onclick="view('${h.id}')">👁 View</button>
-        </td>
+        <td><button>👁 View</button></td>
       </tr>
     `;
   }
-}
-
-function view(id) {
-  alert(
-    "Detail blast ID:\n" + id +
-    "\n\n(Next step: detail per nomor)"
-  );
 }
 
 loadHistory();
