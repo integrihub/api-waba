@@ -1,7 +1,7 @@
-// auth.js — FINAL REAL FIX FOR GITHUB PAGES
+// auth.js — FINAL FIX (GitHub Pages SAFE)
 
 const AUTH_KEY = "waba_logged_in";
-const BASE_PATH = "/api-waba/";
+const BASE = "/api-waba/";
 
 /* ===== LOGIN STATE ===== */
 function setLogin() {
@@ -15,12 +15,12 @@ function isLoggedIn() {
 /* ===== LOGOUT ===== */
 function logout() {
   localStorage.removeItem(AUTH_KEY);
-  location.href = BASE_PATH + "index.html";
+  window.location.href = BASE + "index.html";
 }
 
-/* ===== PAGE GUARD ===== */
+/* ===== PROTECT PAGE ===== */
 function protectPage() {
   if (!isLoggedIn()) {
-    location.href = BASE_PATH + "index.html";
+    window.location.href = BASE + "index.html";
   }
 }
