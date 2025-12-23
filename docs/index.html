@@ -11,11 +11,11 @@
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ===== LOGIN ===== -->
 <div id="login">
   <h2>🔐 Login Admin</h2>
   <input id="user" placeholder="Username">
-  <input id="pass" placeholder="password">
+  <input id="pass" type="password" placeholder="Password">
   <button onclick="login()">Login</button>
 </div>
 
@@ -61,17 +61,18 @@
 <script src="app.js"></script>
 
 <script>
-  // AUTO SHOW DASHBOARD JIKA SUDAH LOGIN
+  function openHistory() {
+    window.location.href = "history.html";
+  }
+
+  // 🔐 auto login kalau sudah pernah login
   if (isLoggedIn()) {
     document.getElementById("login").style.display = "none";
     document.getElementById("app").style.display = "block";
-  }
-
-  function openHistory() {
-    window.location.href = "history.html";
   }
 </script>
 
 </body>
 </html>
+
 
