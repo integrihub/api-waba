@@ -2,6 +2,7 @@ const API = "https://integrihub-webhook.integrihub.workers.dev";
 
 let blasting = false;
 let timer = null;
+let fileLoaded = false; // 🔒 guard utama
 
 // ELEMENT
 const fileInput = document.getElementById("file");
@@ -68,6 +69,7 @@ async function start() {
   }
 
   blasting = true;
+  fileLoaded = true;
   localStorage.setItem("blasting", "true");
 
   btnStart.disabled = true;
@@ -92,19 +94,37 @@ async function start() {
   }
 }
 
-/* ===== CONTROL ===== */
+/* ===== CONTROL (SAFE + NOTIF) ===== */
 function pause() {
+  if (!blasting || !fileLoaded) {
+    showAlert(
+      "info",
+      "ℹ️ Tidak ada blast yang sedang berjalan. Silakan upload file & klik Start."
+    );
+    return;
+  }
+
   fetch(API + "/blast/pause");
   showAlert("info", "⏸ Blast dipause");
 }
 
 function resume() {
+  if (!blasting || !fileLoaded) {
+    showAlert(
+      "info",
+      "ℹ️ Tidak ada blast yang sedang berjalan. Silakan upload file & klik Start."
+    );
+    return;
+  }
+
   fetch(API + "/blast/resume");
   showAlert("info", "▶ Blast dilanjutkan");
   pollStatus();
 }
 
 function cancelBlast() {
+  if (!blasting || !fileLoaded) return;
+
   if (!confirm("Yakin mau CANCEL blast? Tidak bisa dilanjutkan.")) return;
 
   fetch(API + "/blast/cancel");
@@ -139,13 +159,14 @@ function pollStatus() {
 function stopBlast() {
   if (timer) clearInterval(timer);
   blasting = false;
+  fileLoaded = false;
   localStorage.removeItem("blasting");
 
   btnStart.disabled = false;
   spinner.classList.add("hidden");
 }
 
-/* ===== RESTORE STATUS (REFRESH / BALIK PAGE) ===== */
+/* ===== RESTORE STATUS ===== */
 async function restoreStatus() {
   try {
     const r = await fetch(API + "/blast/status");
@@ -158,6 +179,7 @@ async function restoreStatus() {
 
     if (s.percent > 0 && s.percent < 100) {
       blasting = true;
+      fileLoaded = true;
       btnStart.disabled = true;
       spinner.classList.remove("hidden");
       pollStatus();
