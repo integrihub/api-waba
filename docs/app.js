@@ -108,6 +108,15 @@ function pause() {
 function resume() {
   fetch(API + "/blast/resume");
   showAlert("info", "▶ Blast dilanjutkan");
+
+  function cancelBlast() {
+  if (!confirm("Yakin mau CANCEL blast? Tidak bisa dilanjutkan.")) return;
+
+  fetch(API + "/blast/cancel");
+  stopBlast();
+  showAlert("error", "⛔ Blast dibatalkan");
+}
+
 }
 
 /* ===== STATUS POLLING ===== */
@@ -146,3 +155,4 @@ function stopBlast() {
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
+
