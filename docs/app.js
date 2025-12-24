@@ -99,7 +99,7 @@ function pause() {
   if (!blasting || !fileLoaded) {
     showAlert(
       "info",
-      "ℹ️ Tidak ada blast yang sedang berjalan. Silakan upload file & klik Start."
+      "ℹ️ Pause ga bisa di jalankan karena, Tidak ada blast yang sedang berjalan. Silakan upload file & klik Start."
     );
     return;
   }
@@ -112,7 +112,7 @@ function resume() {
   if (!blasting || !fileLoaded) {
     showAlert(
       "info",
-      "ℹ️ Tidak ada blast yang sedang berjalan. Silakan upload file & klik Start."
+      "ℹ️ Resume ga bisa di jalankan karena, Tidak ada blast yang sedang berjalan. Silakan upload file & klik Start."
     );
     return;
   }
@@ -191,3 +191,4 @@ async function restoreStatus() {
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
+
