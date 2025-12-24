@@ -1,7 +1,7 @@
 const API = "https://integrihub-webhook.integrihub.workers.dev";
 
 let blasting = false;
-let timer;
+let timer = null;
 
 // ELEMENT
 const fileInput = document.getElementById("file");
@@ -23,6 +23,14 @@ function showAlert(type, msg) {
 
 function hideAlert() {
   alertBox.classList.add("hidden");
+}
+
+/* ===== RESTORE STATE (PINDAH PAGE / RELOAD AMAN) ===== */
+if (localStorage.getItem("blasting") === "true") {
+  blasting = true;
+  btnStart.disabled = true;
+  spinner.classList.remove("hidden");
+  pollStatus();
 }
 
 /* ===== LOGIN ===== */
@@ -61,17 +69,18 @@ async function start() {
     return;
   }
 
-  // VALIDASI EXTENSION
   if (!file.name.endsWith(".xlsx")) {
     showAlert("error", "❌ File harus format .xlsx");
     return;
   }
 
   blasting = true;
+  localStorage.setItem("blasting", "true");
+
   btnStart.disabled = true;
   spinner.classList.remove("hidden");
 
-  showAlert("info", "⏳ Upload & mulai blast...");
+  showAlert("info", "⏳ Upload Excel & mulai blast...");
 
   try {
     const wb = XLSX.read(await file.arrayBuffer());
@@ -86,7 +95,7 @@ async function start() {
     pollStatus();
   } catch (e) {
     stopBlast();
-    showAlert("error", "❌ Gagal membaca Excel / kirim data");
+    showAlert("error", "❌ Gagal membaca Excel / upload");
   }
 }
 
@@ -103,6 +112,8 @@ function resume() {
 
 /* ===== STATUS POLLING ===== */
 function pollStatus() {
+  if (timer) clearInterval(timer);
+
   timer = setInterval(async () => {
     const r = await fetch(API + "/blast/status");
     const s = await r.json();
@@ -125,6 +136,8 @@ function pollStatus() {
 function stopBlast() {
   clearInterval(timer);
   blasting = false;
+  localStorage.removeItem("blasting");
+
   btnStart.disabled = false;
   spinner.classList.add("hidden");
 }
