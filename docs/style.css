@@ -132,10 +132,35 @@ button:disabled {
   font-size: 14px;
 }
 
+/* ===== ALERT / NOTIFICATION ===== */
+.alert {
+  margin: 15px 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.alert.info {
+  background: rgba(59,130,246,.15);
+  color: #3b82f6;
+}
+
+.alert.success {
+  background: rgba(34,197,94,.15);
+  color: #22c55e;
+}
+
+.alert.error {
+  background: rgba(239,68,68,.15);
+  color: #ef4444;
+}
+
+
 .hidden { display:none; }
 
 @keyframes spin {
   to { transform:rotate(360deg); }
 }
+
 
 
