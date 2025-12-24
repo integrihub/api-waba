@@ -14,7 +14,7 @@ const failed = document.getElementById("failed");
 const percent = document.getElementById("percent");
 const alertBox = document.getElementById("alert");
 
-/* ===== ALERT HELPER ===== */
+/* ===== ALERT ===== */
 function showAlert(type, msg) {
   alertBox.className = `alert ${type}`;
   alertBox.textContent = msg;
@@ -23,14 +23,6 @@ function showAlert(type, msg) {
 
 function hideAlert() {
   alertBox.classList.add("hidden");
-}
-
-/* ===== RESTORE STATE (PINDAH PAGE / RELOAD AMAN) ===== */
-if (localStorage.getItem("blasting") === "true") {
-  blasting = true;
-  btnStart.disabled = true;
-  spinner.classList.remove("hidden");
-  pollStatus();
 }
 
 /* ===== LOGIN ===== */
@@ -50,6 +42,7 @@ async function login() {
     setLogin();
     document.getElementById("login").style.display = "none";
     document.getElementById("app").style.display = "block";
+    restoreStatus();
   } else {
     showAlert("error", "❌ Login gagal");
   }
@@ -108,15 +101,15 @@ function pause() {
 function resume() {
   fetch(API + "/blast/resume");
   showAlert("info", "▶ Blast dilanjutkan");
+  pollStatus();
+}
 
-  function cancelBlast() {
+function cancelBlast() {
   if (!confirm("Yakin mau CANCEL blast? Tidak bisa dilanjutkan.")) return;
 
   fetch(API + "/blast/cancel");
   stopBlast();
   showAlert("error", "⛔ Blast dibatalkan");
-}
-
 }
 
 /* ===== STATUS POLLING ===== */
@@ -142,8 +135,9 @@ function pollStatus() {
   }, 1500);
 }
 
+/* ===== STOP ===== */
 function stopBlast() {
-  clearInterval(timer);
+  if (timer) clearInterval(timer);
   blasting = false;
   localStorage.removeItem("blasting");
 
@@ -151,8 +145,27 @@ function stopBlast() {
   spinner.classList.add("hidden");
 }
 
+/* ===== RESTORE STATUS (REFRESH / BALIK PAGE) ===== */
+async function restoreStatus() {
+  try {
+    const r = await fetch(API + "/blast/status");
+    const s = await r.json();
+
+    sent.textContent = s.sent;
+    failed.textContent = s.failed;
+    percent.textContent = s.percent + "%";
+    bar.style.width = s.percent + "%";
+
+    if (s.percent > 0 && s.percent < 100) {
+      blasting = true;
+      btnStart.disabled = true;
+      spinner.classList.remove("hidden");
+      pollStatus();
+    }
+  } catch {}
+}
+
 /* ===== THEME ===== */
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
-
