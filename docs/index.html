@@ -19,7 +19,7 @@
   <button onclick="login()">Login</button>
 </div>
 
-<!-- APP -->
+<!-- ===== APP ===== -->
 <div id="app" style="display:none">
   <div class="topbar">
     <h1>📊 WhatsApp Blast Dashboard IntegriHub</h1>
@@ -30,6 +30,9 @@
     </div>
   </div>
 
+  <!-- 🔔 ALERT -->
+  <div id="alert" class="alert hidden"></div>
+
   <label>Template</label>
   <input id="template" placeholder="Masukan nama Templatemu">
 
@@ -38,7 +41,8 @@
 
   <div class="row">
     <button id="btnStart" onclick="start()">
-      ▶ Start <span id="spinner" class="spinner hidden"></span>
+      <span id="btnText">▶ Start</span>
+      <span id="spinner" class="spinner hidden"></span>
     </button>
     <button onclick="pause()">⏸ Pause</button>
     <button onclick="resume()">▶ Resume</button>
@@ -65,7 +69,6 @@
     window.location.href = "history.html";
   }
 
-  // 🔐 auto login kalau sudah pernah login
   if (isLoggedIn()) {
     document.getElementById("login").style.display = "none";
     document.getElementById("app").style.display = "block";
@@ -74,6 +77,3 @@
 
 </body>
 </html>
-
-
-
