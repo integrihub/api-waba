@@ -155,12 +155,21 @@ button:disabled {
   color: #ef4444;
 }
 
+button.danger {
+  background: #dc2626;
+}
+button.danger:hover {
+  background: #ef4444;
+}
+
+
 
 .hidden { display:none; }
 
 @keyframes spin {
   to { transform:rotate(360deg); }
 }
+
 
 
 
