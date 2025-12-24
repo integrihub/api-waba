@@ -100,7 +100,7 @@ async function send(env, phone, vars, template) {
         type: "template",
         template: {
           name: template,
-          language: { code: "id" },
+          language: { code: "en_US" },
           components: [{
             type: "body",
             parameters: vars.map(v => ({ type: "text", text: v }))
@@ -121,3 +121,4 @@ async function send(env, phone, vars, template) {
 }
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+
