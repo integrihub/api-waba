@@ -1,24 +1,23 @@
 const API = "https://integrihub-webhook.integrihub.workers.dev";
 
 let blasting = false;
-let timer = null;
+let timer;
 
+// ELEMENT
 const fileInput = document.getElementById("file");
 const templateInput = document.getElementById("template");
 const btnStart = document.getElementById("btnStart");
 const spinner = document.getElementById("spinner");
-const btnText = document.getElementById("btnText");
-
+const bar = document.getElementById("bar");
 const sent = document.getElementById("sent");
 const failed = document.getElementById("failed");
 const percent = document.getElementById("percent");
-const bar = document.getElementById("bar");
 const alertBox = document.getElementById("alert");
 
-/* ===== ALERT ===== */
-function showAlert(msg, type = "info") {
-  alertBox.textContent = msg;
+/* ===== ALERT HELPER ===== */
+function showAlert(type, msg) {
   alertBox.className = `alert ${type}`;
+  alertBox.textContent = msg;
   alertBox.classList.remove("hidden");
 }
 
@@ -32,8 +31,8 @@ async function login() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      username: user.value,
-      password: pass.value
+      username: document.getElementById("user").value,
+      password: document.getElementById("pass").value
     })
   });
 
@@ -41,38 +40,38 @@ async function login() {
 
   if (data.ok) {
     setLogin();
-    loginDiv = document.getElementById("login");
-    appDiv = document.getElementById("app");
-    loginDiv.style.display = "none";
-    appDiv.style.display = "block";
+    document.getElementById("login").style.display = "none";
+    document.getElementById("app").style.display = "block";
   } else {
-    alert("Login gagal");
+    showAlert("error", "❌ Login gagal");
   }
 }
 
 /* ===== START BLAST ===== */
 async function start() {
-  hideAlert();
-
   if (blasting) return;
+
+  hideAlert();
 
   const file = fileInput.files[0];
   const template = templateInput.value.trim();
 
-  if (!file) {
-    showAlert("❌ File Excel belum dipilih", "error");
+  if (!file || !template) {
+    showAlert("error", "❌ File Excel & Template wajib diisi");
     return;
   }
 
-  if (!template) {
-    showAlert("❌ Nama template wajib diisi", "error");
+  // VALIDASI EXTENSION
+  if (!file.name.endsWith(".xlsx")) {
+    showAlert("error", "❌ File harus format .xlsx");
     return;
   }
 
   blasting = true;
   btnStart.disabled = true;
   spinner.classList.remove("hidden");
-  btnText.textContent = "Processing...";
+
+  showAlert("info", "⏳ Upload & mulai blast...");
 
   try {
     const wb = XLSX.read(await file.arrayBuffer());
@@ -84,26 +83,25 @@ async function start() {
       body: JSON.stringify({ csv, template })
     });
 
-    showAlert("🚀 Blast dimulai, sedang mengirim pesan...");
     pollStatus();
   } catch (e) {
-    showAlert("❌ Gagal memulai blast", "error");
     stopBlast();
+    showAlert("error", "❌ Gagal membaca Excel / kirim data");
   }
 }
 
 /* ===== CONTROL ===== */
 function pause() {
   fetch(API + "/blast/pause");
-  showAlert("⏸ Blast dijeda", "info");
+  showAlert("info", "⏸ Blast dipause");
 }
 
 function resume() {
   fetch(API + "/blast/resume");
-  showAlert("▶ Blast dilanjutkan", "info");
+  showAlert("info", "▶ Blast dilanjutkan");
 }
 
-/* ===== STATUS ===== */
+/* ===== STATUS POLLING ===== */
 function pollStatus() {
   timer = setInterval(async () => {
     const r = await fetch(API + "/blast/status");
@@ -115,8 +113,11 @@ function pollStatus() {
     bar.style.width = s.percent + "%";
 
     if (s.percent >= 100) {
-      showAlert("🎉 Blast selesai!", "success");
       stopBlast();
+      showAlert(
+        "success",
+        `✅ Blast selesai | Sent: ${s.sent} | Failed: ${s.failed}`
+      );
     }
   }, 1500);
 }
@@ -126,9 +127,9 @@ function stopBlast() {
   blasting = false;
   btnStart.disabled = false;
   spinner.classList.add("hidden");
-  btnText.textContent = "▶ Start";
 }
 
+/* ===== THEME ===== */
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
