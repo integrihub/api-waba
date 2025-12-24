@@ -58,7 +58,7 @@ async function process(env,template,client){
 }
 
 async function send(env,phone,vars,template){
-  await fetch(`https://graph.facebook.com/v19.0/${env.PHONE_NUMBER_ID}/messages`,{
+  await fetch(`https://graph.facebook.com/v22.0/${env.PHONE_NUMBER_ID}/messages`,{
     method:"POST",
     headers:{
       Authorization:`Bearer ${env.META_TOKEN}`,
@@ -81,4 +81,5 @@ async function send(env,phone,vars,template){
 }
 
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
 
